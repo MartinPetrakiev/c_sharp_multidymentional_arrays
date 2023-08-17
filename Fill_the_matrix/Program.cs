@@ -47,51 +47,70 @@ namespace MyProject
         {
             int value = 1;
 
-            // for (int col = n - 1; col >= 0; col--)
-            // {
-            //     int row = col;
-
-            //     while (row < n)
-            //     {
-            //         matrix[row, col] = value;
-            //         value++;
-            //         row++;
-            //     }
-            // }
-
-
-            int row = n - 1, col = 0;
-
-            while (row > col)
+            //fill below to main diagonal
+            for (int row = n - 1; row >= 0; row--)
             {
-                while (col < n - 1)
+                for (int col = 0; col < n - row; col++)
                 {
-                    matrix[row, col] = value;
-                    value++; 
-                    col++;
+                    matrix[row + col, col] = value;
+                    value++;
                 }
-                row--;
             }
 
+            //fill above main diagonal
+            int currentRow = 0;
+            int iterations = n - 1;
 
-            //3,0; | 2,0; 3,1; | 1,0; 2,1; 3,2; | 0,0; 1,1; 2,2; 4,4; | 0,1; 1,2; 2,3; | 0,2; 1,3; | 0,3;
+            for (int i = 1; i <= iterations; i++)
+            {
+                int currentCol = i;
+                while (currentCol <= n - 1 && currentRow < n - i)
+                {
+                    matrix[currentRow, currentCol] = value;
+                    value++;
+                    currentRow++;
+                    currentCol++;
+                }
+                currentRow = 0;
+            }
 
-            // for (int row = n - 2; row >= 0; row--)
-            // {
-            //     int col = n - 1 - row;
-
-            //     while (col < n)
-            //     {
-            //         matrix[row, col] = value;
-            //         value++;
-            //         col++;
-            //     }
-            // }
         }
 
         static void FillPatternD(int[,] matrix, int n)
         {
+            int value = 1;
+            int matrixSize = n * n;
+            int colStart = 0, colEnd = n - 1;
 
+            while (value <= matrixSize)
+            {
+                //fill downwards
+                for (int d = colStart; d <= colEnd; d++)
+                {
+                    matrix[d, colStart] = value;
+                    value++;
+                }
+                //fill right
+                for (int r = colStart + 1; r <= colEnd; r++)
+                {
+                    matrix[colEnd, r] = value;
+                    value++;
+                }
+                //fill up
+                for (int u = colEnd - 1; u >= colStart; u--)
+                {
+                    matrix[u, colEnd] = value;
+                    value++;
+                }
+                //fill left
+                for (int l = colEnd - 1; l >= colStart + 1; l--)
+                {
+                    matrix[colStart, l] = value;
+                    value++;
+                }
+                colStart++;
+                colEnd--;
+            }
         }
 
         static void Main(string[] args)
@@ -131,14 +150,6 @@ namespace MyProject
         }
     }
 }
-
-// {
-//     {1, 2, 3, 4},
-//     {5, 6, 7, 8},
-//     {9, 10, 11, 12},
-//     {13, 14, 15, 16},
-// };
-
 
 /*
 Description
