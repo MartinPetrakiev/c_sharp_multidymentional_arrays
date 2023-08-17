@@ -1,1 +1,6 @@
 .vscode/*
+*/obj/
+*/bin/
+*/*.sln
+*/*.csproj
+*.sln
