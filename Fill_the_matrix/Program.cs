@@ -73,7 +73,6 @@ namespace MyProject
                 }
                 currentRow = 0;
             }
-
         }
 
         static void FillPatternD(int[,] matrix, int n)
