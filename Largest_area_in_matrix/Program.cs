@@ -41,7 +41,10 @@ class Program
 
     static int DepthFirstSearch(int[,] matrix, bool[,] visited, int row, int col, int target)
     {
-        if (row < 0 || row >= matrix.GetLength(0) || col < 0 || col >= matrix.GetLength(1) || visited[row, col] || matrix[row, col] != target)
+        bool checkRow = row < 0 || row >= matrix.GetLength(0);
+        bool checkCol = col < 0 || col >= matrix.GetLength(1);
+
+        if (checkRow || checkCol || visited[row, col] || matrix[row, col] != target)
         {
             return 0;
         }
@@ -49,10 +52,10 @@ class Program
         visited[row, col] = true;
         int area = 1;
 
-        area += DepthFirstSearch(matrix, visited, row - 1, col, target);
-        area += DepthFirstSearch(matrix, visited, row + 1, col, target);
-        area += DepthFirstSearch(matrix, visited, row, col - 1, target);
-        area += DepthFirstSearch(matrix, visited, row, col + 1, target);
+        area += DepthFirstSearch(matrix, visited, row - 1, col, target); //left
+        area += DepthFirstSearch(matrix, visited, row + 1, col, target); //right
+        area += DepthFirstSearch(matrix, visited, row, col - 1, target); //up
+        area += DepthFirstSearch(matrix, visited, row, col + 1, target); //down
 
         return area;
     }
