@@ -112,29 +112,9 @@ namespace MyProject
             }
         }
 
-        static void Main(string[] args)
+        static void PrintMatrix(int[,] matrix)
         {
-            int n = Convert.ToInt32(Console.ReadLine());
-            string type = Console.ReadLine()!;
-
-            int[,] matrix = new int[n, n];
-
-            if (type == "a")
-            {
-                FillPatternA(matrix, n);
-            }
-            else if (type == "b")
-            {
-                FillPatternB(matrix, n);
-            }
-            else if (type == "c")
-            {
-                FillPatternC(matrix, n);
-            }
-            else if (type == "d")
-            {
-                FillPatternD(matrix, n);
-            }
+            int n = matrix.GetLength(0);
 
             for (int row = 0; row < n; row++)
             {
@@ -145,7 +125,37 @@ namespace MyProject
 
                 Console.WriteLine();
             }
+        }
 
+        static void Main(string[] args)
+        {
+            int n = Convert.ToInt32(Console.ReadLine());
+            string type = Console.ReadLine()!;
+
+            int[,] matrix = new int[n, n];
+
+            switch (type)
+            {
+                case "a":
+                    FillPatternA(matrix, n);
+                    PrintMatrix(matrix);
+                    break;
+                case "b":
+                    FillPatternB(matrix, n);
+                    PrintMatrix(matrix);
+                    break;
+                case "c":
+                    FillPatternC(matrix, n);
+                    PrintMatrix(matrix);
+                    break;
+                case "d":
+                    FillPatternD(matrix, n);
+                    PrintMatrix(matrix);
+                    break;
+                default:
+                    Console.WriteLine("Invalid pattern.");
+                    break;
+            }
         }
     }
 }
@@ -168,4 +178,29 @@ Constraints
 Time limit: 0.1s
 Memory limit: 16MB
 
+Example:
+
+Pattern A
+1   5   9   13
+2   6   10  14
+3   7   11  15
+4   8   12  16
+
+Pattern B
+1   8   9   16
+2   7   10  15
+3   6   11  14
+4   5   12  13
+
+Pattern C
+7   11  14  16
+4   8   12  15
+2   5   9   13
+1   3   6   10
+
+Pattern D
+1   12  11  10
+2   13  16  9
+3   14  15  8
+4   5   6   7
 */
