@@ -1,54 +1,70 @@
 ﻿using System;
+using System.Collections;
 
-class Program
+namespace ConsoleEnum
 {
-    static int[] InitializeIntArray(int n)
+    class Program
     {
-        int[] array = new int[n];
-
-        for (int i = 0; i < n; i++)
+        static int[] InitializeIntArrayFromInput(int n)
         {
-            array[i] = Convert.ToInt32(Console.ReadLine());
+            int[] array = new int[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                array[i] = Convert.ToInt32(Console.ReadLine());
+            }
+
+            return array;
         }
 
-        return array;
-    }
-
-    static void FindLargestNumberLessOrEqualToK(int[] array, int k)
-    {
-        Array.Sort(array);
-
-        Console.WriteLine("Sorted array:");
-
-        for (int i = 0;i< array.Length; i++)
+        private static int CompareIntsByMinValue(int a, int b)
         {
-            Console.Write(array[i] + "\t");
+            return a - b;
         }
 
-        Console.WriteLine();
-        Console.WriteLine("Largest number <= k in the array is:");
-
-        int indexK = Array.BinarySearch(array, k);
-
-        if(indexK < 0)
+        static void FindLargestNumberLessOrEqualToK(int[] inputArray, int k)
         {
-            Console.WriteLine(array[~indexK - 1]);
+            Array.Sort(inputArray, CompareIntsByMinValue);
+
+            Console.WriteLine("Sorted array:");
+
+            for (int i = 0; i < inputArray.Length; i++)
+            {
+                Console.Write(inputArray[i] + "\t");
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Largest number <= k in the array is:");
+
+            int indexK = Array.BinarySearch(inputArray, k);
+
+            if (indexK < 0)
+            {
+                if (~indexK == 0)
+                {
+                    Console.WriteLine("No number less or equal to K found in array.");
+                }
+                else
+                {
+                    Console.WriteLine(inputArray[~indexK - 1]);
+                }
+            }
+            else
+            {
+                Console.WriteLine(inputArray[indexK]);
+            }
         }
-        else
+
+        static void Main(string[] args)
         {
-            Console.WriteLine(array[indexK]);
+            int n = Convert.ToInt32(Console.ReadLine());
+            int k = Convert.ToInt32(Console.ReadLine());
+
+            int[] array = InitializeIntArrayFromInput(n);
+
+            FindLargestNumberLessOrEqualToK(array, k);
+
         }
-    }
-
-    static void Main(string[] args)
-    {
-        int n = Convert.ToInt32(Console.ReadLine());
-        int k = Convert.ToInt32(Console.ReadLine());
-
-        int[] array = InitializeIntArray(n);
-
-        FindLargestNumberLessOrEqualToK(array, k);
-
     }
 }
 
