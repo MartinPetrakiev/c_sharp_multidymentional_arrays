@@ -18,8 +18,11 @@ class Program
         return matrix;
     }
 
-    static void CalculateMaxSumOf3x3(int[,] matrix, int n, int m)
+    static void CalculateMaxSumOf3x3(int[,] matrix)
     {
+        int n = matrix.GetLength(0);
+        int m = matrix.GetLength(1);
+
         int maxSum = int.MinValue;
 
         for (int i = 0; i < n - 2; i++)
@@ -45,7 +48,7 @@ class Program
 
         int[,] matrix = InitializeInt2DArray(n, m);
 
-        CalculateMaxSumOf3x3(matrix, n, m);
+        CalculateMaxSumOf3x3(matrix);
     }
 }
 
